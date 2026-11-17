@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101010"><title>ShopBD Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="layout">
+ <aside class="sidebar" id="sidebar">
+  <a class="brand" href="index.html"><span class="brand-mark">S</span><span>Shop<span>BD</span><small>ADMIN PANEL</small></span></a>
+  <div class="side-label">WORKSPACE</div>
+  <button class="nav-item active" data-view="overview"><span>▦</span> ড্যাশবোর্ড</button>
+  <button class="nav-item" data-view="products"><span>▣</span> পণ্য ম্যানেজমেন্ট</button>
+  <button class="nav-item" data-view="orders"><span>▤</span> অর্ডার ম্যানেজমেন্ট</button>
+  <button class="nav-item" data-view="inventory"><span>◫</span> স্টক ম্যানেজমেন্ট</button>
+  <div class="side-bottom"><div class="admin-profile"><div class="avatar">A</div><div><b>ShopBD Admin</b><small>Store Manager</small></div><span>•••</span></div><a href="index.html" class="store-link">↗ স্টোরফ্রন্ট দেখুন</a></div>
+ </aside>
+ <main class="main">
+  <header class="topbar"><button class="menu-btn" id="menuBtn">☰</button><div><small>SHOPBD / ADMIN</small><h1 id="pageTitle">ড্যাশবোর্ড</h1></div><div class="top-actions"><span class="live-dot">● Store demo</span><button class="top-avatar">A</button></div></header>
+  <div class="content">
+   <section class="view active" id="view-overview">
+    <div class="welcome"><div><p class="eyebrow">OVERVIEW</p><h2>স্বাগতম, Admin! 👋</h2><p>আপনার ShopBD স্টোরের সার্বিক অবস্থা এক নজরে দেখুন।</p></div><button class="primary-btn" data-go="products">＋ নতুন পণ্য যোগ করুন</button></div>
+    <div class="stats-grid">
+     <article class="stat-card"><div class="stat-top"><span>মোট বিক্রয়</span><i>৳</i></div><strong id="statSales">৳ ০</strong><small class="positive">↑ ডেমো অর্ডার থেকে হিসাব</small></article>
+     <article class="stat-card"><div class="stat-top"><span>মোট অর্ডার</span><i>▤</i></div><strong id="statOrders">০</strong><small>সব অর্ডার</small></article>
+     <article class="stat-card"><div class="stat-top"><span>মোট পণ্য</span><i>▣</i></div><strong id="statProducts">০</strong><small>ক্যাটালগে তালিকাভুক্ত</small></article>
+     <article class="stat-card"><div class="stat-top"><span>কম স্টক</span><i class="warning-icon">!</i></div><strong id="statLow">০</strong><small class="warning-text">স্টক ৫ বা তার কম</small></article>
+    </div>
+    <div class="dashboard-grid">
+     <section class="panel"><div class="panel-head"><div><h3>সাম্প্রতিক অর্ডার</h3><p>সর্বশেষ কাস্টমার অর্ডারগুলো</p></div><button class="link-btn" data-go="orders">সব অর্ডার →</button></div><div class="table-wrap"><table><thead><tr><th>অর্ডার আইডি</th><th>কাস্টমার</th><th>তারিখ</th><th>মোট</th><th>স্ট্যাটাস</th></tr></thead><tbody id="recentOrders"></tbody></table></div></section>
+     <section class="panel"><div class="panel-head"><div><h3>স্টক সতর্কতা</h3><p>যেসব পণ্যে নজর দেওয়া প্রয়োজন</p></div><button class="link-btn" data-go="inventory">স্টক দেখুন →</button></div><div id="lowStockList" class="low-stock-list"></div></section>
+    </div>
+   </section>
+
+   <section class="view" id="view-products">
+    <div class="section-toolbar"><div><p class="eyebrow">CATALOG</p><h2>পণ্য ম্যানেজমেন্ট</h2><p>পণ্য যোগ, সম্পাদনা ও মুছে ফেলুন।</p></div><button class="primary-btn" id="addProductBtn">＋ নতুন পণ্য</button></div>
+    <div class="panel"><div class="table-tools"><input id="productSearch" placeholder="পণ্যের নাম খুঁজুন..."><span id="productCount">০টি পণ্য</span></div><div class="table-wrap"><table><thead><tr><th>পণ্য</th><th>ক্যাটাগরি</th><th>দাম</th><th>স্টক</th><th>অ্যাকশন</th></tr></thead><tbody id="productsTable"></tbody></table></div></div>
+   </section>
+
+   <section class="view" id="view-orders">
+    <div class="section-toolbar"><div><p class="eyebrow">SALES</p><h2>অর্ডার ম্যানেজমেন্ট</h2><p>অর্ডারের অবস্থা আপডেট করুন।</p></div><div class="toolbar-right"><select id="orderFilter"><option value="All">সব অর্ডার</option><option>Pending</option><option>Confirmed</option><option>Shipped</option><option>Delivered</option><option>Cancelled</option></select></div></div>
+    <div class="panel"><div class="table-wrap"><table><thead><tr><th>অর্ডার আইডি</th><th>কাস্টমার</th><th>পণ্য</th><th>তারিখ</th><th>মোট</th><th>স্ট্যাটাস</th><th>আপডেট</th></tr></thead><tbody id="ordersTable"></tbody></table></div></div>
+   </section>
+
+   <section class="view" id="view-inventory">
+    <div class="section-toolbar"><div><p class="eyebrow">INVENTORY</p><h2>স্টক ম্যানেজমেন্ট</h2><p>পণ্যের মজুত ও স্টক সতর্কতা নিয়ন্ত্রণ করুন।</p></div><span class="stock-note">⚑ ৫ বা কম হলে Low Stock</span></div>
+    <div class="panel"><div class="table-wrap"><table><thead><tr><th>পণ্য</th><th>SKU</th><th>বর্তমান স্টক</th><th>স্ট্যাটাস</th><th>স্টক আপডেট</th></tr></thead><tbody id="inventoryTable"></tbody></table></div></div>
+   </section>
+   <footer>© 2025 ShopBD Admin · Frontend demo dashboard</footer>
+  </div>
+ </main>
+</div>
+
+<div class="modal-backdrop" id="productModal">
+ <div class="modal">
+  <div class="modal-head"><div><p class="eyebrow">PRODUCT DETAILS</p><h3 id="modalTitle">নতুন পণ্য যোগ করুন</h3></div><button class="close-modal" id="closeModal">✕</button></div>
+  <form id="productForm">
+   <input type="hidden" id="editId">
+   <label>পণ্যের নাম<input id="pName" required maxlength="80" placeholder="যেমন: Wireless Headphone"></label>
+   <div class="form-row"><label>ক্যাটাগরি<select id="pCategory"><option>Audio</option><option>Mobile</option><option>Wearables</option><option>Accessories</option></select></label><label>SKU<input id="pSku" required placeholder="যেমন: AUD-001"></label></div>
+   <div class="form-row"><label>বিক্রয় মূল্য (৳)<input id="pPrice" type="number" min="0" required></label><label>আগের মূল্য (৳)<input id="pOld" type="number" min="0"></label></div>
+   <div class="form-row"><label>স্টক পরিমাণ<input id="pStock" type="number" min="0" required></label><label>ব্যাজ / অফার<input id="pTag" placeholder="যেমন: NEW"></label></div>
+   <label>ছবির URL<input id="pImage" type="url" placeholder="https://..."></label>
+   <div class="modal-actions"><button type="button" class="secondary-btn" id="cancelModal">বাতিল</button><button class="primary-btn" type="submit">সেভ করুন</button></div>
+  </form>
+ </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="admin.js"></script>
+</body></html>
